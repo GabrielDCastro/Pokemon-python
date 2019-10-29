@@ -21,8 +21,9 @@ class Pokemon:
         return "{} ({})".format(self.nome, self.level)
 
     def atacar(self, pokemon):
-        pokemon.vida = pokemon.vida - self.ataque
-        print("{} perdeu {} pontos de vida!\n".format(pokemon, self.ataque))
+        dano = int((self.ataque * random.random() * 1.3))
+        pokemon.vida -= dano
+        print("{} perdeu {} pontos de vida!\n".format(pokemon, dano))
 
         if pokemon.vida <= 0:
             print("{} foi derrotado".format(pokemon))
