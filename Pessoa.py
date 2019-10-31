@@ -10,11 +10,20 @@ POKEMONS =[
     PokemonFogo("flarion"),
     PokemonFogo("charmilion"),
     PokemonFogo("charizard"),
+    PokemonFogo("blaziken"),
+    PokemonFogo("houndoom"),
     PokemonEletrico("pikachu"),
+    PokemonEletrico("helioptile"),
     PokemonEletrico("raichu"),
+    PokemonEletrico("elekid"),
+    PokemonEletrico("electrike"),
+    PokemonEletrico("pichu"),
     PokemonAgua("squirtle"),
     PokemonAgua("magicarp"),
     PokemonAgua("bubasauro"),
+    PokemonAgua("totodile"),
+    PokemonAgua("gyarados"),
+    PokemonAgua("empoleon"),
 ]
 
 class Pessoa:
@@ -36,6 +45,7 @@ class Pessoa:
             print("Pokemons de {}:".format(self))
             for index, pokemon in enumerate(self.pokemons):
                 print("{} - {}".format(index,pokemon))
+            print("")
         else:
             print("{} não tem pokemons :(\n".format(self))
 
@@ -51,6 +61,7 @@ class Pessoa:
 
     def mostrar_dinheiro(self):
         print("Você possui ${}".format(self.dinheiro))
+        print("")
 
     def ganhar_dinheiro(self, quantidade):
         self.dinheiro += quantidade
@@ -67,10 +78,13 @@ class Pessoa:
         if nosso_pokemon and pokemon_inimigo:
             while True:
                 vitoria = nosso_pokemon.atacar(pokemon_inimigo)
+                print("")
                 if vitoria:
                     print("{} ganhou a batalha".format(self))
                     self.ganhar_dinheiro(pokemon_inimigo.level *100)
                     nosso_pokemon.level += 1
+                    if nosso_pokemon.level >=100:
+                        nosso_pokemon.level = 100
                     break
 
                 vitoria_inimigo = pokemon_inimigo.atacar(nosso_pokemon)
@@ -117,7 +131,7 @@ class Player(Pessoa):
         if self.pokemons:
             while True:
                 try:
-                    escolha= int(input("Escolha seu pokemon que irá pra rinha"))
+                    escolha= int(input("Escolha seu pokemon que irá para a luta"))
                     pokemon_escolhido = self.pokemons[escolha]
                     print("{} eu escolho você!!".format(pokemon_escolhido))
                     return pokemon_escolhido
@@ -127,7 +141,7 @@ class Player(Pessoa):
             print("Você não tem pokemons\n")
 
     def explorar(self):
-        if random.random() <=0.45:
+        if random.random() <=0.65:
             pokemon = random.choice(POKEMONS)
             print("Um pokemon selvagem apareceu: {}".format(pokemon))
 
@@ -140,9 +154,12 @@ class Player(Pessoa):
 class Inimigo(Pessoa):
     tipo="inimigo"
 
-    def __init__(self, nome=None, pokemons=[]):
+    def __init__(self, nome=None, pokemons=None):
         if not pokemons:
+            pokemon_aleatorio = []
             for i in range(random.randint(1,3)):
-                pokemons.append(random.choice(POKEMONS))
+                pokemon_aleatorio.append(random.choice(POKEMONS))
 
-        super().__init__(nome=nome, pokemons=pokemons)
+            super().__init__(nome=nome, pokemons=pokemon_aleatorio)
+        else:
+            super().__init__(nome=nome, pokemons=pokemons)
