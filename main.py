@@ -70,11 +70,31 @@ if __name__ == "__main__":
         elif escolha == "4":
             player.mostrar_dinheiro()
         elif escolha == "5":
-            pokemon1 = random.choice(POKEMONS)
-            pokemon2 = random.choice(POKEMONS)
-            pokemon3 = random.choice(POKEMONS)
-            print("{} - {}\n{} - {}\n{} - {}".format(pokemon1, pokemon1.level * 1000, pokemon2, pokemon2.level * 1000, pokemon3, pokemon3.level * 1000))
+            while True:
+                lista= []
+                pokemon1 = random.choice(POKEMONS)
+                valor1 = pokemon1.level * 500
+                pokemon2 = random.choice(POKEMONS)
+                valor2 = pokemon2.level * 500
+                pokemon3 = random.choice(POKEMONS)
+                valor3 = pokemon3.level * 500
+                print("1 - {} ${}\n2- {} ${}\n3 - {} ${}".format(pokemon1, valor1 , pokemon2, valor2, pokemon3, valor3))
+                print("Deseja comprar algum? (s/n)")
+                escolha_compra = input()
+                if escolha_compra == 'n':
+                    break
+                elif escolha_compra == 's':
+                    compra= input("Qual deseja comprar?")
+                    if compra == "1" and player.dinheiro >= valor1:
+                        player.capturar(pokemon1)
+                        player.dinheiro -= valor1
+                    if compra == "2" and player.dinheiro >= valor2:
+                        player.capturar(pokemon2)
+                        player.dinheiro -= valor2
+                    if compra == "3" and player.dinheiro >= valor3:
+                        player.capturar(pokemon3)
+                        player.dinheiro -= valor3
+                    else:
+                        print("Dinheiro insuficiente")
 
-        else:
-            print("Opção inválida")
 
