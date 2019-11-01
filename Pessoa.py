@@ -83,8 +83,8 @@ class Pessoa:
                     print("{} ganhou a batalha".format(self))
                     self.ganhar_dinheiro(pokemon_inimigo.level *100)
                     nosso_pokemon.level += 1
-                    if nosso_pokemon.level >=100:
-                        nosso_pokemon.level = 100
+                    if nosso_pokemon.level >=50:
+                        nosso_pokemon.level = 50
                     break
 
                 vitoria_inimigo = pokemon_inimigo.atacar(nosso_pokemon)
