@@ -6,7 +6,7 @@ class Pokemon:
         if level:
             self.level=level
         else:
-            self.level=random.randint(1,10)
+            self.level=random.randint(1,50)
 
         if nome:
             self.nome = nome
@@ -34,6 +34,7 @@ class Pokemon:
 
         pokemon.vida -= dano
         print("{} perdeu {} pontos de vida!".format(pokemon, dano))
+        print("{} está com {} de vida!".format(pokemon, pokemon.vida))
 
         if pokemon.vida <= 0:
             print("{} foi derrotado".format(pokemon))
