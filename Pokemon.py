@@ -31,12 +31,14 @@ class Pokemon:
         elif self.tipo == 'elétrico' and pokemon.tipo == 'água':
             dano = int(dano * 1.5)
             print('ataque especial eletrico')
-
+        print("{} está com {} de vida!".format(pokemon, pokemon.vida))
         pokemon.vida -= dano
         print("{} perdeu {} pontos de vida!".format(pokemon, dano))
         print("{} está com {} de vida!".format(pokemon, pokemon.vida))
 
         if pokemon.vida <= 0:
+            pokemon.ataque = (20 + (pokemon.level + 5))
+            pokemon.vida = (50 + (pokemon.level + 15))
             print("{} foi derrotado".format(pokemon))
             return True
         else:
