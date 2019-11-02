@@ -1,3 +1,4 @@
+import pickle
 from pokemon import *
 from Pessoa import *
 from loja import *
@@ -27,24 +28,47 @@ def escolher_pokemon_inicial(player):
         elif escolha == '3':
             player.capturar(squirtle)
             break
-        else:            print("Escolha inválida")
+        else:
+            print("Escolha inválida")
+
+def salvar_jogo(player):
+    try:
+        with open("database.db", "wb") as arquivo:
+            pickle.dump(player, arquivo)
+    except:
+        print("erro ao salvar")
+
+def carregar_jogo():
+    try:
+        with open("database.db", "rb") as arquivo:
+            player = pickle.load(arquivo)
+            print("load bem sucedido")
+            return player
+    except:
+        print("erro ao carregar jogo")
 
 
 
 if __name__ == "__main__":
     print("Bem vindo ao Pokemon RPG de texto")
-    nome = input("Qual vai ser seu nome?")
-    player = Player(nome)
-    print("Objetivo é ser um mestre pokemon e lutar com geral")
+    print("Esse jogo salva automaticamente")
 
-    if player.pokemons:
-        print("Já vi que possui Pokemon")
-    else:
-        escolher_pokemon_inicial(player)
+    player = carregar_jogo()
 
-    print("Vamos fazer uma primeira luta para se abtuar. Seu oponente sera o gary")
-    gary = Inimigo(nome="Gary sonolento", pokemons=[PokemonAgua("squirtle", level=1)])
-    player.batalhar(gary)
+    if not player:
+        nome = input("Qual vai ser seu nome?")
+        player = Player(nome)
+        print("Objetivo é ser um mestre pokemon e lutar com geral")
+
+        if player.pokemons:
+            print("Já vi que possui Pokemon")
+        else:
+            escolher_pokemon_inicial(player)
+
+        print("Vamos fazer uma primeira luta para se abtuar. Seu oponente sera o gary")
+        gary = Inimigo(nome="Gary sonolento", pokemons=[PokemonAgua("squirtle", level=1)])
+        player.batalhar(gary)
+
     while True:
         print("____________________________________________")
         print("O que deseja fazer?")
@@ -62,9 +86,11 @@ if __name__ == "__main__":
             break
         elif escolha == '1':
             player.explorar()
+            salvar_jogo(player)
         elif escolha == '2':
             inimigo_aleatorio = Inimigo()
             player.batalhar(inimigo_aleatorio)
+            salvar_jogo(player)
         elif escolha == '3':
             player.mostrar_pokemons()
         elif escolha == "4":
@@ -88,13 +114,15 @@ if __name__ == "__main__":
                     if compra == "1" and player.dinheiro >= valor1:
                         player.capturar(pokemon1)
                         player.dinheiro -= valor1
+                        salvar_jogo(player)
                     if compra == "2" and player.dinheiro >= valor2:
                         player.capturar(pokemon2)
                         player.dinheiro -= valor2
+                        salvar_jogo(player)
                     if compra == "3" and player.dinheiro >= valor3:
                         player.capturar(pokemon3)
                         player.dinheiro -= valor3
+                        salvar_jogo(player)
                     else:
                         print("Dinheiro insuficiente")
-
 
