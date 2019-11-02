@@ -83,12 +83,17 @@ class Pessoa:
                     print("{} ganhou a batalha".format(self))
                     self.ganhar_dinheiro(pokemon_inimigo.level *100)
                     nosso_pokemon.level += 1
+                    nosso_pokemon.ataque = (20 + (nosso_pokemon.level + 5))
+                    nosso_pokemon.vida = (50 + (nosso_pokemon.level + 15))
                     if nosso_pokemon.level >=50:
                         nosso_pokemon.level = 50
+
                     break
 
                 vitoria_inimigo = pokemon_inimigo.atacar(nosso_pokemon)
                 if vitoria_inimigo:
+                    nosso_pokemon.ataque = (20 + (nosso_pokemon.level + 5))
+                    nosso_pokemon.vida = (50 + (nosso_pokemon.level + 15))
                     print("{} ganhou a batalha".format(inimigo))
                     break
 
@@ -108,6 +113,8 @@ class Pessoa:
                     print("{} ganhou a batalha".format(self))
                     self.capturar(inimigo)
                     nosso_pokemon.level +=1
+                    nosso_pokemon.ataque = (20 + (nosso_pokemon.level + 5))
+                    nosso_pokemon.vida = (50 + (nosso_pokemon.level + 15))
                     break
 
                 vitoria_inimigo = pokemon_inimigo.atacar(nosso_pokemon)
